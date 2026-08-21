@@ -35,6 +35,36 @@ st.set_page_config(
 
 
 # ============================================================
+# HIDE STREAMLIT DEFAULT TOP BAR
+# ============================================================
+
+st.markdown(
+    """
+    <style>
+
+    header[data-testid="stHeader"] {
+        display: none;
+    }
+
+    div[data-testid="stToolbar"] {
+        display: none;
+    }
+
+    #MainMenu {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: hidden;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# ============================================================
 # SESSION STATE
 # ============================================================
 
@@ -92,8 +122,9 @@ analyze_button = st.sidebar.button(
 
 
 
+
 # ============================================================
-# HEADER
+# STOCKPILOT HEADER
 # ============================================================
 
 st.title("📈 StockPilot")
@@ -102,11 +133,6 @@ st.subheader(
     "AI-Powered Stock Intelligence Platform"
 )
 
-st.caption(
-    "Machine Learning • Technical Indicators • "
-    "Risk Analytics • Out-of-Sample Backtesting • "
-    "AI Market Intelligence"
-)
 
 st.divider()
 
@@ -129,7 +155,7 @@ if analyze_button:
     try:
 
         # ====================================================
-        # FETCH DATA
+        # MARKET DATA
         # ====================================================
 
         with st.spinner(
@@ -197,7 +223,7 @@ if analyze_button:
 
 
         # ====================================================
-        # BACKTEST
+        # OUT-OF-SAMPLE BACKTEST
         # ====================================================
 
         with st.spinner(
@@ -257,7 +283,7 @@ if analyze_button:
 
 
 # ============================================================
-# DASHBOARD
+# MAIN DASHBOARD
 # ============================================================
 
 if st.session_state.analysis_done:
@@ -376,7 +402,7 @@ if st.session_state.analysis_done:
 
 
     # ========================================================
-    # PROBABILITY SECTION
+    # PROBABILITIES
     # ========================================================
 
     st.subheader(
@@ -432,12 +458,11 @@ if st.session_state.analysis_done:
     )
 
 
-    st.divider()
-
-
     # ========================================================
     # FINANCIAL CHARTS
     # ========================================================
+
+    st.divider()
 
     st.header(
         "📈 Interactive Financial Charts"
@@ -493,12 +518,6 @@ if st.session_state.analysis_done:
         )
 
 
-    st.caption(
-        "Moving averages help identify the underlying "
-        "price trend."
-    )
-
-
     # ========================================================
     # RSI + MACD
     # ========================================================
@@ -507,10 +526,6 @@ if st.session_state.analysis_done:
         st.columns(2)
     )
 
-
-    # ========================================================
-    # RSI
-    # ========================================================
 
     with indicator_col1:
 
@@ -528,21 +543,12 @@ if st.session_state.analysis_done:
                 width="stretch"
             )
 
-            st.caption(
-                "RSI measures momentum and can help "
-                "identify overbought or oversold conditions."
-            )
-
         else:
 
             st.warning(
                 "RSI data unavailable."
             )
 
-
-    # ========================================================
-    # MACD
-    # ========================================================
 
     with indicator_col2:
 
@@ -575,11 +581,6 @@ if st.session_state.analysis_done:
                     macd_columns
                 ],
                 width="stretch"
-            )
-
-            st.caption(
-                "MACD helps identify momentum and "
-                "potential trend changes."
             )
 
         else:
@@ -721,9 +722,8 @@ if st.session_state.analysis_done:
 
 
     st.caption(
-        "StockPilot evaluates the strategy on an unseen "
-        "historical test period to estimate how the model "
-        "would have performed historically."
+        "The strategy is evaluated on an unseen "
+        "historical test period."
     )
 
 
@@ -845,12 +845,6 @@ if st.session_state.analysis_done:
             width="stretch"
         )
 
-    else:
-
-        st.warning(
-            "Strategy return data unavailable."
-        )
-
 
     # ========================================================
     # BACKTEST SUMMARY
@@ -913,11 +907,6 @@ if st.session_state.analysis_done:
     )
 
 
-    st.caption(
-        "Top features used by the Random Forest model."
-    )
-
-
     try:
 
         importance_df = (
@@ -976,8 +965,8 @@ if st.session_state.analysis_done:
 
 
     st.caption(
-        "AI-generated interpretation of the machine-learning "
-        "prediction and historical risk metrics."
+        "AI-generated interpretation of StockPilot's "
+        "prediction and risk metrics."
     )
 
 
@@ -1148,8 +1137,8 @@ else:
         )
 
         st.write(
-            "Random Forest predicts the next market "
-            "direction using technical features."
+            "Random Forest predicts market direction "
+            "using technical features."
         )
 
 
@@ -1161,7 +1150,7 @@ else:
 
         st.write(
             "Analyze price trends, RSI, MACD, "
-            "Bollinger Bands and risk metrics."
+            "Bollinger Bands and risk."
         )
 
 
@@ -1172,7 +1161,7 @@ else:
         )
 
         st.write(
-            "Evaluate the model on an unseen "
+            "Evaluate the strategy on an unseen "
             "historical test period."
         )
 
@@ -1186,4 +1175,3 @@ st.divider()
 st.caption(
     "📈 StockPilot • AI-Powered Stock Intelligence Platform"
 )
-
